@@ -1,0 +1,47 @@
+html {
+  background-image: url("https://images.pexels.com/photos/414660/pexels-photo-414660.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+  color: palevioletred;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#login {
+  width: 400px;
+  margin: 100px auto;
+  background: white;
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0 30px 30px 0;
+}
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: palevioletred;
+  color: white;
+  font-family: "Pacifico", cursive;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+}
+input {
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border-top: none;
+  border-left: none;
+  border-color: palevioletred;
+}
+label {
+  font-size: large;
+  margin-top: 50px;
+}
+input:focus {
+  outline: none;
+}

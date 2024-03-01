@@ -2,11 +2,9 @@ import express from "express";
 import pg from "pg";
 import bodyParser from "body-parser";
 import env from "dotenv";
-import bcrypt from "bcrypt";
 
 const app = express();
 const port = 3000;
-const saltRounds = 10;
 env.config();
 
 const db = new pg.Client({
@@ -25,7 +23,6 @@ app.use(express.static("public"));
 app.get("/home", (req, res) => {
   res.render("index.ejs");
 });
-
 app.get("/about", (req, res) => {
   res.render("about.ejs");
 });
@@ -55,17 +52,11 @@ app.post("/register", async (req, res) => {
     if (checkResult.rows.length > 0) {
       res.render("login.ejs");
     } else {
-      bcrypt.hash(password, saltRounds, async (err, hash) => {
-        if (err) {
-          console.log(err);
-        } else {
-          const result = await db.query(
-            "INSERT INTO student(email,password) VALUES($1,$2)",
-            [email, hash]
-          );
-          res.render("login.ejs");
-        }
-      });
+      const result = await db.query(
+        "INSERT INTO student(email,password) VALUES($1,$2)",
+        [email, password]
+      );
+      res.render("login.ejs");
     }
   } catch (err) {
     console.log(err);
@@ -80,18 +71,12 @@ app.post("/", async (req, res) => {
     ]);
     if (result.rows.length > 0) {
       const user = result.rows[0];
-      const storedPassword = user.password;
-      bcrypt.compare(password, storedPassword, (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
-          if (result) {
-            res.render("index.ejs");
-          } else {
-            res.send("Incorrect Password!");
-          }
-        }
-      });
+      const storedPassword = password;
+      if (storedPassword === password) {
+        res.redirect("/home");
+      } else {
+        res.send("Incorrect Password!");
+      }
     } else {
       res.render("register.ejs");
     }
