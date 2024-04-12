@@ -44,6 +44,18 @@ app.get("/", (req, res) => {
 app.get("/register", (req, res) => {
   res.render("register.ejs");
 });
+app.get("/gotoreg", (req, res) => {
+  res.render("gotoreg.ejs");
+});
+app.get("/gotologin", (req, res) => {
+  res.render("gotologin.ejs");
+});
+app.post("/gotoreg", (req, res) => {
+  res.render("register.ejs");
+});
+app.post("/gotologin", (req, res) => {
+  res.render("login.ejs");
+});
 app.post("/register", async (req, res) => {
   const email = req.body.username;
   const password = req.body.password;
@@ -63,7 +75,7 @@ app.post("/register", async (req, res) => {
             "INSERT INTO student(email,password) VALUES($1,$2)",
             [email, hash]
           );
-          res.render("login.ejs");
+          res.render("gotologin.ejs");
         }
       });
     }
@@ -93,7 +105,7 @@ app.post("/", async (req, res) => {
         }
       });
     } else {
-      res.render("register.ejs");
+      res.render("gotoreg.ejs");
     }
   } catch (err) {
     console.log(err);
